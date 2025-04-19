@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StoresContainerView: View {
     
-    let stores: [OrderType]
+    let stores: [StoreType]
     let title = "Lojas"
     
     var body: some View {
@@ -18,15 +18,21 @@ struct StoresContainerView: View {
                 .font(.headline)
             
             ForEach(stores) { store in
-                StoreItemView(order: store)
-                    .padding(.vertical, 8)
+                NavigationLink {
+                    StoreDetailView(store: store)
+                } label: {
+                    StoreItemView(store: store)
+                }
+                .foregroundStyle(.foreground)
             }
         }
     }
 }
 
 #Preview {
-    ScrollView {
-        StoresContainerView(stores: storesMock)
+    NavigationView {
+        ScrollView {
+            StoresContainerView(stores: storesMock)
+        }
     }
 }

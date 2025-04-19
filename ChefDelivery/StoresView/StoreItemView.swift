@@ -9,30 +9,28 @@ import SwiftUI
 
 struct StoreItemView: View {
     
-    let order: OrderType
+    let store: StoreType
     
     var body: some View {
         HStack {
-            Image(order.image)
+            Image(store.logoImage)
                 .resizable()
                 .scaledToFit()
                 .cornerRadius(25)
                 .frame(width: 50, height: 50)
                 
             VStack {
-                Text(order.name)
+                Text(store.name)
                     .font(.subheadline)
                     .fontWeight(.semibold)
+                    .foregroundStyle(.foreground)
             }
             Spacer()
         }
         .contentShape(Rectangle())
-        .onTapGesture {
-            print("Tapped on \(order.name)")
-        }
     }
 }
 
 #Preview {
-    StoreItemView(order: OrderType(id: 0, name: "Monstro Burger", image: "monstro-burger-logo"))
+    StoreItemView(store: storesMock[0])
 }
