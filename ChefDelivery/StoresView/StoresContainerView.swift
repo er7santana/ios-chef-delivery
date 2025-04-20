@@ -12,10 +12,12 @@ struct StoresContainerView: View {
     let stores: [StoreType]
     let title = "Lojas"
     @State private var ratingFilter: Int = 0
+    @State private var minDistanceFilter: Double = 0.0
+    @State private var maxDistanceFilter: Double = 100.0
     
     var filteredStores: [StoreType] {
         return stores.filter { store in
-            store.stars >= ratingFilter
+            store.stars >= ratingFilter && (store.distance >= minDistanceFilter && store.distance <= maxDistanceFilter)
         }
     }
     
@@ -27,7 +29,7 @@ struct StoresContainerView: View {
                 
                 Spacer()
                 
-                Menu("Filtrar") {
+                Menu("Estrelas") {
                     
                     Button {
                         ratingFilter = 0
@@ -48,8 +50,28 @@ struct StoresContainerView: View {
                         }
                     }
                 }
-                .foregroundStyle(.foreground)
+                
+                Menu("Distância") {
+                    Button {
+                        minDistanceFilter = 0
+                        maxDistanceFilter = 100
+                    } label: {
+                        Text("Limpar filtro")
+                    }
+                    
+                    Divider()
+                    
+                    ForEach(Array(stride(from: 0, through: 20, by: 5)), id:\.self) { distance in
+                        Button {
+                            minDistanceFilter = Double(distance)
+                            maxDistanceFilter = Double(distance + 5)
+                        } label: {
+                            Text("De \(distance) até \(distance + 5) km")
+                        }
+                    }
+                }
             }
+            .foregroundStyle(.foreground)
             
             if filteredStores.isEmpty {
                 Text("Nenhuma loja encontrada.")
