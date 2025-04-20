@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct StoreDetailView: View {
+    
     @Environment(\.dismiss) var dismiss
     let store: StoreType
+    @State private var selectedProduct: ProductType?
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading) {
@@ -49,29 +52,35 @@ struct StoreDetailView: View {
                     .padding()
                 
                 ForEach(store.products) { product in
-                    HStack(spacing: 8) {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(product.name)
-                                .bold()
-                            
-                            Text(product.description)
-                                .foregroundStyle(.secondary)
-                            
-                            Text(product.formattedPrice)
+                    Button {
+                        selectedProduct = product
+                    } label: {
+                        HStack(spacing: 8) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(product.name)
+                                    .bold()
                                 
+                                Text(product.description)
+                                    .foregroundStyle(.secondary)
+                                    .multilineTextAlignment(.leading)
+                                
+                                Text(product.formattedPrice)
+                                
+                            }
+                            
+                            Spacer()
+                            
+                            Image(product.image)
+                                .resizable()
+                                .scaledToFit()
+                                .cornerRadius(12)
+                                .frame(width: 120, height: 120)
+                                .shadow(color: .black.opacity(0.3), radius: 20, x: 6, y: 8)
                         }
-                        
-                        Spacer()
-                        
-                        Image(product.image)
-                            .resizable()
-                            .scaledToFit()
-                            .cornerRadius(12)
-                            .frame(width: 120, height: 120)
-                            .shadow(color: .black.opacity(0.3), radius: 20, x: 6, y: 8)
                     }
                 }
-                .padding(.horizontal)
+                .padding()
+                .foregroundStyle(.foreground)
             }
             .navigationTitle(store.name)
             .navigationBarTitleDisplayMode(.inline)
@@ -105,6 +114,9 @@ struct StoreDetailView: View {
                             .font(.title2)
                     }
                 }
+            }
+            .sheet(item: $selectedProduct) { product in
+                ProductDetailView(product: product)
             }
         }
     }
