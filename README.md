@@ -10,7 +10,7 @@ App criado no curso da Alura sobre SwiftUI
 - Animations
 - Botão customizado com ***DragGesture***
 - Chamando APIs de back end com ***URLSession*** e ___Alamofire___
-- Uso do [Apiary]([url](https://apiary.io/)) da Oracle para documentação e mock de contrato de API backend
+- Uso do [Apiary](https://apiary.io/) da Oracle para documentação e mock de contrato de API backend
 
 
 ## Screenshots
