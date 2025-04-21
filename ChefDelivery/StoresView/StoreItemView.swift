@@ -19,11 +19,33 @@ struct StoreItemView: View {
                 .cornerRadius(25)
                 .frame(width: 50, height: 50)
                 
-            VStack {
+            VStack(alignment: .leading, spacing: 5) {
                 Text(store.name)
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundStyle(.foreground)
+                
+                HStack(spacing: 0) {
+                    Image(systemName: "star.fill")
+                        .foregroundColor(.yellow)
+                        .font(.caption)
+                    
+                    Text(store.stars.description)
+                        .foregroundColor(.yellow)
+                    
+                    Circle()
+                        .frame(width: 6)
+                        .padding(.horizontal, 8)
+                        
+                    
+                    Text(store.distance.formatted(.number))
+                    Text(" km")
+                        
+                    
+                    Spacer()
+                }
+                .foregroundStyle(.secondary)
+                .font(.subheadline)
             }
             Spacer()
         }

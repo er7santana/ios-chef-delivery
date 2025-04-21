@@ -8,44 +8,50 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    private var service = HomeService()
+    @State private var stores: [StoreType] = []
+    @State private var isLoading: Bool = true
+    
     var body: some View {
         
         NavigationView {
             VStack {
-                NavigationBar()
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack(spacing: 20) {
-                        OrderTypeGridView()
-                        CarouselTabView()
-                        StoresContainerView(stores: storesMock)
-                            .padding(.horizontal)
+                if isLoading {
+                    ProgressView("Carregando...")
+                } else {
+                    NavigationBar()
+                    ScrollView(.vertical, showsIndicators: false) {
+                        VStack(spacing: 20) {
+                            OrderTypeGridView()
+                            CarouselTabView()
+                            StoresContainerView(stores: stores)
+                                .padding(.horizontal)
+                        }
                     }
                 }
             }
             .padding()
         }
-        .onAppear {
-            fetchData()
+        .task {
+            await getStores()
         }
-        
     }
     
-    func fetchData() {
-        guard let url = URL(string: "https://private-7926e5-eliezerchefdelivery.apiary-mock.com/home") else { return }
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Error fetching data: \(error)")
-                return
+    func getStores() async {
+        isLoading = true
+        defer { isLoading = false }
+        do {
+            let result = try await service.fetchData()
+            switch result {
+            case .success(let stores):
+                self.stores = stores
+            case .failure(let error):
+                print("Error: \(error)")
             }
-            
-            guard let data = data else { return }
-            do {
-                let stores = try JSONDecoder().decode([StoreType].self, from: data)
-                print(stores)
-            } catch {
-                print("Error decoding JSON: \(error)")
-            }
-        }.resume()
+        } catch {
+            print("Error: \(error)")
+        }
     }
 }
 

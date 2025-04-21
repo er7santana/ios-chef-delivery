@@ -17,7 +17,7 @@ struct StoreType: Identifiable, Decodable {
     let stars: Int
     let products: [ProductType]
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case id
         case name
         case distance
