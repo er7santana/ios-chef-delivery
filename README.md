@@ -1,6 +1,6 @@
 ## Chef Delivery
 
-App criado no curso da Alura sobre SwiftUI
+App criado no curso da Alura [Construa aplicativos iOS com SwiftUI]([url](https://cursos.alura.com.br/formacao-ios-swiftui))
 
 
 ## Principais features
