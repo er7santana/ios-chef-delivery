@@ -6,7 +6,7 @@ App criado no curso da Alura [Construa aplicativos iOS com SwiftUI](https://curs
 ## Principais features
 
 - Criação de interfaces com SwiftUI
-- HStacks, VStacks, GeometryReader
+- HStacks, VStacks, GeometryReader, GridView
 - Animations
 - Botão customizado com ***DragGesture***
 - Chamando APIs de back end com ***URLSession*** e ___Alamofire___
