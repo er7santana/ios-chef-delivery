@@ -24,7 +24,28 @@ struct ContentView: View {
             }
             .padding()
         }
+        .onAppear {
+            fetchData()
+        }
         
+    }
+    
+    func fetchData() {
+        guard let url = URL(string: "https://private-7926e5-eliezerchefdelivery.apiary-mock.com/home") else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error fetching data: \(error)")
+                return
+            }
+            
+            guard let data = data else { return }
+            do {
+                let stores = try JSONDecoder().decode([StoreType].self, from: data)
+                print(stores)
+            } catch {
+                print("Error decoding JSON: \(error)")
+            }
+        }.resume()
     }
 }
 
