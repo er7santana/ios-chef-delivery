@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     
-    private var service = HomeService()
+//    private var service: HomeService = HomeServiceDefaultImpl() // URLSession
+    private var service: HomeService = HomeServiceAlamofireImpl() //Alamofire
     @State private var stores: [StoreType] = []
     @State private var isLoading: Bool = true
     
