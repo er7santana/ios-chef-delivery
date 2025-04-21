@@ -87,6 +87,7 @@ struct StoresContainerView: View {
                         StoreItemView(store: store)
                     }
                     .foregroundStyle(.foreground)
+                    .padding(.vertical)
                 }
             }
         }
