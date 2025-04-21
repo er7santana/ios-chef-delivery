@@ -9,9 +9,12 @@ import SwiftUI
 
 struct ProductDetailView: View {
     let product: ProductType
-    @Environment(\.dismiss) var dismiss
     var service: OrderService = OrderService()
+    
+    @Environment(\.dismiss) var dismiss
     @State private var quantity: Int = 1
+    @State private var showAlert = false
+    @State private var alertMessage: String = ""
 
     var body: some View {
         VStack {
@@ -29,7 +32,11 @@ struct ProductDetailView: View {
                 }
             }
         }
-            
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text(alertMessage), dismissButton: .default(Text("OK"), action: {
+                dismiss()
+            }))
+        }
     }
     
     func confirmOrder() async {
@@ -37,8 +44,9 @@ struct ProductDetailView: View {
             let request = OrderRequest(product: product, quantity: quantity)
             let result = try await service.confirmOrder(orderRequest: request)
             switch result {
-            case .success(let confirmation):
-                print("Order confirmed: \(confirmation)")
+            case .success(let response):
+                showAlert = true
+                alertMessage = response.message
             case .failure(let error):
                 print("Error: \(error)")
             }
