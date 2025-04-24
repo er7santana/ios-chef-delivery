@@ -24,8 +24,7 @@ struct ProductDetailQuantityView: View {
                     }
                 } label: {
                     Image(systemName: "minus.circle.fill")
-                        .font(.title)
-                        .bold()
+                        .font(.title.bold())
                 }
                 .disabled(quantity <= 1)
                 
@@ -37,14 +36,14 @@ struct ProductDetailQuantityView: View {
                     quantity += 1
                 } label: {
                     Image(systemName: "plus.circle.fill")
-                        .font(.title)
-                        .bold()
+                        .font(.title.bold())
                 }
             }
         }
     }
 }
 
+@available(iOS 17.0, *)
 #Preview {
     @Previewable @State var quantity: Int = 1
     ProductDetailQuantityView(quantity: $quantity)

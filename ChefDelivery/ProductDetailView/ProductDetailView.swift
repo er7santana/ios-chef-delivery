@@ -74,8 +74,7 @@ struct ProductDetailButtonView: View {
             }
             .padding(.horizontal, 32)
             .padding(.vertical, 16)
-            .font(.title3)
-            .bold()
+            .font(.title3.bold())
             .background(Color.colorRed)
             .foregroundStyle(.white)
             .cornerRadius(32)

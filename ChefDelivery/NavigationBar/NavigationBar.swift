@@ -16,8 +16,7 @@ struct NavigationBar: View {
             Button("Rua Baraldi, 668") {
                 
             }
-            .font(.subheadline)
-            .fontWeight(.semibold)
+            .font(.subheadline.weight(.semibold))
             .foregroundStyle(.foreground)
             .padding(.leading, 30)
             
